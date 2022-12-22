@@ -15,9 +15,13 @@ class MainActivity : AppCompatActivity() {
         val btnSubmit = findViewById<Button>(R.id.btn_submit)
         btnSubmit.setOnClickListener {
 
-            // TODO Step 2: Launch the Another Activity
+            // TODO Step 4: Launch the Another Activity and pass the data using putExtra.
             // START
-            val intent = Intent(this, AnotherActivity::class.java)
+            val intent = Intent(this@MainActivity, AnotherActivity::class.java).apply {
+                putExtra("key1", "Value1")
+                putExtra("key2", 1.28)
+                // You can add as much as params you want.
+            }
             startActivity(intent)
         }
         // END
