@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO Step 1: Design the View as below using ConstraintLayout and FrameLayout-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+<!-- TODO Step 2: We the ImageView to select the image and below the Title and Button. To select an image we will the add the icon above the image using FrameLayout.-->
+    <!--START-->
+
+    <FrameLayout
+        android:id="@+id/fl_select_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#E1E1E1"
+            android:contentDescription="image"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv_add_edit_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:contentDescription="image"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            android:src="@drawable/ic_add_a_photo" />
+    </FrameLayout>
+    <!--END-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

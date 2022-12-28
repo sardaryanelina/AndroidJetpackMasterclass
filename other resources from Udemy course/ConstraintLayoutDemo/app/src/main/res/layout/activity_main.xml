@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--TODO Step 2: This is already added layout in the Empty Activity. You can see the Constraint Layout consists of essential attributes as width, height. This is how you can add the constraint layout.-->
+<!--START-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!--For More details: https://developer.android.com/training/constraint-layout -->
+    <!--To define a view's position in ConstraintLayout,
+    you must add at least one horizontal and one vertical constraint
+    for the view. Each constraint represents a connection or
+    alignment to another view, the parent layout,
+    or an invisible guideline. Each constraint defines the
+    view's position along either the vertical or horizontal axis;
+    so each view must have a minimum of one constraint for
+    each axis, but often more are necessary.-->
+    <!--TODO Step 3: Read the above definition to understand the attributes behaviour.-->
+    <!--Here we are building the simple Grid View with using ImageView and TextView to explore the layout params .-->
+    <!--You can play with this all parameters and build your app design as per requirement.-->
+    <!--START-->
+
+    <ImageView
+        android:id="@+id/iv_image_1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="image"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_image_2"
+        app:layout_constraintTop_toBottomOf="@id/my_textView" />
+
+    <TextView
+        android:id="@+id/tv_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="Text 1"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/iv_image_2"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_1" />
+
+    <ImageView
+        android:id="@+id/iv_image_2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="image"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toRightOf="@id/iv_image_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/my_textView" />
+
+
+    <TextView
+        android:id="@+id/tv_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="Text 2"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@id/iv_image_1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_2" />
+
+    <TextView
+        android:id="@+id/my_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Simple Grid View Design"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/iv_image_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--END-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--END-->

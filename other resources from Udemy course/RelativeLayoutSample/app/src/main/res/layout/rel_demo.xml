@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_a"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="tv_a"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:background="@color/black"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_b"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:text="tv_b"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:background="@color/purple_200"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/tv_a"
+        />
+
+    <TextView
+        android:id="@+id/tv_c"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="tv_c"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:background="@color/teal_700"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/tv_b"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hi there"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hi there"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hi there"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
