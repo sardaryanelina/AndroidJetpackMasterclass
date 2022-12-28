@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElinaResearchProject"
         tools:targetApi="31">
-        <!--TODO Step 9: Add the configChanges attribute to allow layout to rotate it horizontally in the application if user rotates it.-->
+        <!--TODO Step 6: Add the configChanges attribute to allow layout to rotate it horizontally in the application if user rotates it.-->
         <!--This will prevent restart when the screen orientation changes-->
         <!--START-->
         <activity

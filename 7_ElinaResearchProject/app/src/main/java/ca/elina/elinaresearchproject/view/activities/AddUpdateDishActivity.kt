@@ -9,7 +9,7 @@ import ca.elina.elinaresearchproject.databinding.ActivityAddUpdateDishBinding
  */
 class AddUpdateDishActivity : AppCompatActivity() {
 
-    // TODO Step 5: Create a global variable for layout ViewBinding
+    // TODO Step 7: Create a global variable for layout ViewBinding
     // START
     private lateinit var mBinding: ActivityAddUpdateDishBinding
     // END
@@ -17,19 +17,19 @@ class AddUpdateDishActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TODO Step 6: Initialize the layout ViewBinding variable and set the contentView.
+        // TODO Step 8: Initialize the layout ViewBinding variable and set the contentView.
         // START
         mBinding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         // END
 
-        // TODO Step 8: Call the method of setupActionBar
+        // TODO Step 10: Call the method of setupActionBar
         // START
         setupActionBar()
         // END
     }
 
-    // TODO Step 7: Create a function to setup the ActionBar
+    // TODO Step 9: Create a function to setup the ActionBar
     // START
     private fun setupActionBar() {
         // action bar in xml -> id is toolbar_add_dish_activity
