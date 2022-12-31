@@ -1,4 +1,4 @@
-package com.tutorials.eu.favdish.model.entities
+package ca.elina.elinaresearchproject.model.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
