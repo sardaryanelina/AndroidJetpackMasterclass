@@ -8,8 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ca.elina.elinaresearchproject.R
 
-// TODO Step 1: Rename the DashboardFragment to FavoriteFragment. Remove the used code as well remove the unused ViewModel Classes from the viewmodel package.
-// Use the rename short cut Shift + F6. It is rename all the occurrence.
+// DashboardFragment refactored to FavoriteFragment.
 class FavoriteDishesFragment : Fragment() {
 
     override fun onCreateView(

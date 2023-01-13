@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ca.elina.elinaresearchproject.R
 import androidx.recyclerview.widget.GridLayoutManager
 import ca.elina.elinaresearchproject.application.FavDishApplication
@@ -16,7 +17,6 @@ import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
 
 class AllDishesFragment : Fragment() {
 
-    // Create a global variable for the ViewBinding.
     private lateinit var mBinding: FragmentAllDishesBinding
 
     /**
@@ -37,7 +37,6 @@ class AllDishesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Initialize the mBinding variable.
         mBinding =
             FragmentAllDishesBinding.inflate(inflater, container, false)
         return mBinding.root
@@ -46,7 +45,6 @@ class AllDishesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the RecyclerView and bind the adapter class
         // Set the LayoutManager that this RecyclerView will use.
         mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
         // Adapter class is initialized and list is passed in the param.
@@ -61,7 +59,6 @@ class AllDishesFragment : Fragment() {
         mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { dishes ->
             dishes.let {
 
-                // Pass the dishes list to the adapter class.
                 if (it.isNotEmpty()) {
 
                     mBinding.rvDishesList.visibility = View.VISIBLE
@@ -76,6 +73,18 @@ class AllDishesFragment : Fragment() {
             }
         }
     }
+
+    // TODO Step 8: Create a function to navigate to the Dish Details Fragment.
+    // START
+    /**
+     * A function to navigate to the Dish Details Fragment.
+     */
+    fun dishDetails(){
+
+        findNavController()
+            .navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails())
+    }
+    // END
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_all_dishes, menu)

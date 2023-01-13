@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ca.elina.elinaresearchproject.R
 
-// TODO Step 2: Rename the NotificationsFragment to RandomDishFragment. Remove the unused code and ViewModel Class.
+// NotificationsFragment refactored to RandomDishFragment.
 class RandomDishFragment : Fragment() {
 
     override fun onCreateView(

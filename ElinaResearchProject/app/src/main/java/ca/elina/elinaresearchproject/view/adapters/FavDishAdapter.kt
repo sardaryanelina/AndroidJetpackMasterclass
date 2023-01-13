@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import ca.elina.elinaresearchproject.databinding.ItemDishLayoutBinding
 import ca.elina.elinaresearchproject.model.entities.FavDish
+import ca.elina.elinaresearchproject.view.fragments.AllDishesFragment
 import com.bumptech.glide.Glide
 
 class FavDishAdapter(private val fragment: Fragment) :
@@ -45,6 +46,15 @@ class FavDishAdapter(private val fragment: Fragment) :
             .into(holder.ivDishImage)
 
         holder.tvTitle.text = dish.title
+
+        // TODO Step 9: Assign the click event to the itemview and perform the required action.
+        // START
+        holder.itemView.setOnClickListener {
+            if (fragment is AllDishesFragment) {
+                fragment.dishDetails()
+            }
+        }
+        // END
     }
 
     /**
@@ -54,12 +64,10 @@ class FavDishAdapter(private val fragment: Fragment) :
         return dishes.size
     }
 
-    // A function that has the updated list of dishes that we will bind to the adapter class.
     fun dishesList(list: List<FavDish>) {
         dishes = list
         notifyDataSetChanged()
     }
-
 
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
