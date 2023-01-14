@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import ca.elina.elinaresearchproject.application.FavDishApplication
 import ca.elina.elinaresearchproject.databinding.FragmentAllDishesBinding
 import ca.elina.elinaresearchproject.view.activities.AddUpdateDishActivity
+import ca.elina.elinaresearchproject.view.activities.MainActivity
 import ca.elina.elinaresearchproject.view.adapters.FavDishAdapter
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModel
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
@@ -74,17 +75,32 @@ class AllDishesFragment : Fragment() {
         }
     }
 
-    // TODO Step 8: Create a function to navigate to the Dish Details Fragment.
+    // TODO Step 10: Override the onResume method and call the function to show the BottomNavigationView when user is on the AllDishesFragment.
     // START
+    override fun onResume() {
+        super.onResume()
+
+        if(requireActivity() is MainActivity){
+            (activity as MainActivity?)!!.showBottomNavigationView()
+        }
+    }
+    // END
+
     /**
      * A function to navigate to the Dish Details Fragment.
      */
     fun dishDetails(){
 
+        // TODO Step 9: Call the hideBottomNavigationView function when user wants to navigate to the DishDetailsFragment.
+        // START
+        if(requireActivity() is MainActivity){
+            (activity as MainActivity?)!!.hideBottomNavigationView()
+        }
+        // END
+
         findNavController()
             .navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails())
     }
-    // END
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_all_dishes, menu)

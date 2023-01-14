@@ -5,11 +5,9 @@ plugins {
     // Apply the "kapt" plugin
     id 'kotlin-kapt'
 
-    // TODO Step 6: Apply the plugin to navigate with auto generated classes and pass the arguments.
-    // START
+    // Apply the plugin to navigate with auto generated classes and pass the arguments.
     // For more details visit https://developer.android.com/guide/navigation/navigation-pass-data#Safe-args
-    id("androidx.navigation.safeargs.kotlin")
-    // END
+    id 'androidx.navigation.safeargs.kotlin' //or id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

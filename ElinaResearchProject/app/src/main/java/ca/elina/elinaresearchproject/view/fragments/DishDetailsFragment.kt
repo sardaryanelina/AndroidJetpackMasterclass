@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import ca.elina.elinaresearchproject.R
 
-// TODO Step 1: Create a Blank fragment name as DishDetailsFragment and Remove all the unused code that is added by Android Studio.
-// START
 /**
  * A simple [Fragment] subclass.
  * Use the [DishDetailsFragment.newInstance] factory method to
@@ -29,4 +27,3 @@ class DishDetailsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_dish_details, container, false)
     }
 }
-// END

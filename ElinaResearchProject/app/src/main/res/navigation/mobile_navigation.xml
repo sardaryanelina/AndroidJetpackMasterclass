@@ -11,13 +11,10 @@
         android:label="@string/title_all_dishes"
         tools:layout="@layout/fragment_all_dishes" >
 
-        <!--TODO Step 5: Add the action to navigate to the Dish Details Fragment from the All Dishes Fragment. After adding the action re-build the project to generate the required classes. -->
-        <!-- To view the auto generate class you can go to "java (generated) and com.tutorials.eu.favdish.view.fragments" under the project package structure.-->
-        <!--START-->
+        <!--Action to navigate to the Dish Details Fragment from the All Dishes Fragment. -->
         <action
             android:id="@+id/action_all_dishes_to_dish_details"
             app:destination="@id/navigation_dish_details" />
-        <!--END-->
     </fragment>
 
     <fragment
@@ -32,12 +29,11 @@
         android:label="@string/title_random_dish"
         tools:layout="@layout/fragment_random_dish" />
 
-    <!--TODO Step 3: Add the Dish Details Fragment in navigation view. -->
-    <!--START-->
+    <!--Dish Details Fragment in navigation view. -->
     <fragment
         android:id="@+id/navigation_dish_details"
         android:name="ca.elina.elinaresearchproject.view.fragments.DishDetailsFragment"
         android:label="@string/title_dish_details"
         tools:layout="@layout/fragment_dish_details"/>
-    <!--END-->
+
 </navigation>

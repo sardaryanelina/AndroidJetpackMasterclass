@@ -47,14 +47,12 @@ class FavDishAdapter(private val fragment: Fragment) :
 
         holder.tvTitle.text = dish.title
 
-        // TODO Step 9: Assign the click event to the itemview and perform the required action.
-        // START
+        //  Assign the click event to the itemview and perform the required action.
         holder.itemView.setOnClickListener {
             if (fragment is AllDishesFragment) {
                 fragment.dishDetails()
             }
         }
-        // END
     }
 
     /**
