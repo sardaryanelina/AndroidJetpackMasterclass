@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO Step 6: Create a menu file as menu_all_dishes and add the item as below.-->
-<!--START-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -10,4 +8,3 @@
         app:showAsAction="always"/>
 
 </menu>
-<!--END-->
