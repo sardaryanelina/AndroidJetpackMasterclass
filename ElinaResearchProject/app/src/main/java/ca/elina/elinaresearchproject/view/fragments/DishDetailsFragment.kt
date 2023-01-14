@@ -70,7 +70,7 @@ class DishDetailsFragment : Fragment() {
         // END
     }
 
-    // TODO Step 9: Override the onDestroy function to make the mBinding null that is avoid the memory leaks. This we have not done before because the AllDishesFragment because when in it the onDestroy function is called the app is killed. But this is the good practice to do it.
+    // TODO Step 9: Override the onDestroy function to make the mBinding null to avoid memory leaks. This we have not done before with the AllDishesFragment, because when in it the onDestroy function is called, the app is killed. But this is a good practice to do it.
     // START
     override fun onDestroy() {
         super.onDestroy()
