@@ -80,32 +80,28 @@ class AllDishesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if(requireActivity() is MainActivity){
+        if (requireActivity() is MainActivity) {
             (activity as MainActivity?)!!.showBottomNavigationView()
         }
     }
 
-    // TODO Step 4: Add the required param as below to the function.
-    // START
     /**
      * A function to navigate to the Dish Details Fragment.
      *
      * @param favDish
      */
-    fun dishDetails(favDish: FavDish){
-    // END
+    fun dishDetails(favDish: FavDish) { // add required FavDish param
         // Call the hideBottomNavigationView function when user wants to navigate to the DishDetailsFragment.
-        if(requireActivity() is MainActivity){
+        if (requireActivity() is MainActivity) {
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }
 
-        // TODO Step 6: Add the required argument to the action.
-        // START
         findNavController()
-            .navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails(
-                favDish // Add the required argument to the action
-            ))
-        // END
+            .navigate(
+                AllDishesFragmentDirections.actionAllDishesToDishDetails(
+                    favDish // Add the required argument favDish to the action
+                )
+            )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

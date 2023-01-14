@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 
-// TODO Step 2: Annotate a class with @Parcelize and implement Parcelable.
-// START
+// Annotate a class with @Parcelize and implement Parcelable.
 @Parcelize
 // Create a new package name as entities in the model package. After creating the entities package
 // create data class with the entities (Dish Items) that we want to insert in the database.
@@ -29,4 +28,3 @@ data class FavDish(
 ) : Parcelable
 // Parcelable is similar to Serializable.
 // It makes an object into a String that can easily pass from one screen to another.
-// END

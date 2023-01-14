@@ -36,12 +36,10 @@
         android:label="@string/title_dish_details"
         tools:layout="@layout/fragment_dish_details">
 
-        <!-- TODO Step 3: Add the required arguments to the DishDetailsFragment and re-build the project to generate the required classes.-->
-        <!--START-->
+        <!-- The required arguments to the DishDetailsFragment.-->
         <argument
             android:name="dishDetails"
             app:argType="ca.elina.elinaresearchproject.model.entities.FavDish" />
-        <!--END-->
     </fragment>
 
 </navigation>

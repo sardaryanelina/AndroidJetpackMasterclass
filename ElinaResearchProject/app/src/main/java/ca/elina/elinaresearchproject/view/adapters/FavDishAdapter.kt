@@ -50,10 +50,7 @@ class FavDishAdapter(private val fragment: Fragment) :
         //  Assign the click event to the itemview and perform the required action.
         holder.itemView.setOnClickListener {
             if (fragment is AllDishesFragment) {
-                // TODO Step 5: Pass the required param value.
-                // START
-                fragment.dishDetails(dish)
-                // END
+                fragment.dishDetails(dish) // Pass the required param value.
             }
         }
     }
