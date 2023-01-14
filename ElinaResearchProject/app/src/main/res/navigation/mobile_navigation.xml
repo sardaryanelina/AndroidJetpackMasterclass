@@ -9,7 +9,7 @@
         android:id="@+id/navigation_all_dishes"
         android:name="ca.elina.elinaresearchproject.view.fragments.AllDishesFragment"
         android:label="@string/title_all_dishes"
-        tools:layout="@layout/fragment_all_dishes" >
+        tools:layout="@layout/fragment_all_dishes">
 
         <!--Action to navigate to the Dish Details Fragment from the All Dishes Fragment. -->
         <action
@@ -34,6 +34,14 @@
         android:id="@+id/navigation_dish_details"
         android:name="ca.elina.elinaresearchproject.view.fragments.DishDetailsFragment"
         android:label="@string/title_dish_details"
-        tools:layout="@layout/fragment_dish_details"/>
+        tools:layout="@layout/fragment_dish_details">
+
+        <!-- TODO Step 3: Add the required arguments to the DishDetailsFragment and re-build the project to generate the required classes.-->
+        <!--START-->
+        <argument
+            android:name="dishDetails"
+            app:argType="ca.elina.elinaresearchproject.model.entities.FavDish" />
+        <!--END-->
+    </fragment>
 
 </navigation>

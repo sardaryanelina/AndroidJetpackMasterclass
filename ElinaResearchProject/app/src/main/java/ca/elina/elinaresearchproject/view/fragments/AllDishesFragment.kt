@@ -10,6 +10,7 @@ import ca.elina.elinaresearchproject.R
 import androidx.recyclerview.widget.GridLayoutManager
 import ca.elina.elinaresearchproject.application.FavDishApplication
 import ca.elina.elinaresearchproject.databinding.FragmentAllDishesBinding
+import ca.elina.elinaresearchproject.model.entities.FavDish
 import ca.elina.elinaresearchproject.view.activities.AddUpdateDishActivity
 import ca.elina.elinaresearchproject.view.activities.MainActivity
 import ca.elina.elinaresearchproject.view.adapters.FavDishAdapter
@@ -75,8 +76,7 @@ class AllDishesFragment : Fragment() {
         }
     }
 
-    // TODO Step 10: Override the onResume method and call the function to show the BottomNavigationView when user is on the AllDishesFragment.
-    // START
+    // Override the onResume method and call the function to show the BottomNavigationView when user is on the AllDishesFragment.
     override fun onResume() {
         super.onResume()
 
@@ -84,22 +84,28 @@ class AllDishesFragment : Fragment() {
             (activity as MainActivity?)!!.showBottomNavigationView()
         }
     }
-    // END
 
+    // TODO Step 4: Add the required param as below to the function.
+    // START
     /**
      * A function to navigate to the Dish Details Fragment.
+     *
+     * @param favDish
      */
-    fun dishDetails(){
-
-        // TODO Step 9: Call the hideBottomNavigationView function when user wants to navigate to the DishDetailsFragment.
-        // START
+    fun dishDetails(favDish: FavDish){
+    // END
+        // Call the hideBottomNavigationView function when user wants to navigate to the DishDetailsFragment.
         if(requireActivity() is MainActivity){
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }
-        // END
 
+        // TODO Step 6: Add the required argument to the action.
+        // START
         findNavController()
-            .navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails())
+            .navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails(
+                favDish // Add the required argument to the action
+            ))
+        // END
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

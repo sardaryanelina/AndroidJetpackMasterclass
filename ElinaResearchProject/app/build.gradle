@@ -8,6 +8,11 @@ plugins {
     // Apply the plugin to navigate with auto generated classes and pass the arguments.
     // For more details visit https://developer.android.com/guide/navigation/navigation-pass-data#Safe-args
     id 'androidx.navigation.safeargs.kotlin' //or id("androidx.navigation.safeargs.kotlin")
+
+    // TODO Step 1: Apply the parcelize plugin
+    // START
+    id 'kotlin-parcelize'
+    // END
 }
 
 android {
