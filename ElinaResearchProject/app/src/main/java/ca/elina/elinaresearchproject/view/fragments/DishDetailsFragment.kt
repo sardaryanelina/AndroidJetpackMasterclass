@@ -1,12 +1,13 @@
 package ca.elina.elinaresearchproject.view.fragments
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.fragment.navArgs
@@ -24,6 +25,8 @@ import com.bumptech.glide.request.target.Target
 import ca.elina.elinaresearchproject.R
 import ca.elina.elinaresearchproject.application.FavDishApplication
 import ca.elina.elinaresearchproject.databinding.FragmentDishDetailsBinding
+import ca.elina.elinaresearchproject.model.entities.FavDish
+import ca.elina.elinaresearchproject.utils.Constants
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModel
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
 
@@ -44,8 +47,18 @@ class DishDetailsFragment : Fragment() {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
 
+    // TODO Step 6: Create a global variable  for Dish Details and assign the args to it.
+    // START
+    private var mFavDishDetails: FavDish? = null
+    // END
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // TODO Step 4: Set the setHasOptionsMenu to true.
+        // START
+        setHasOptionsMenu(true)
+        // END
     }
 
     override fun onCreateView(
@@ -61,6 +74,11 @@ class DishDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args: DishDetailsFragmentArgs by navArgs()
+
+        // TODO Step 7: Initialize the FavDish global variable.
+        // START
+        mFavDishDetails = args.dishDetails
+        // END
 
         args.let {
 
@@ -107,7 +125,21 @@ class DishDetailsFragment : Fragment() {
                 it.dishDetails.type.capitalize(Locale.ROOT) // Used to make first letter capital
             mBinding!!.tvCategory.text = it.dishDetails.category
             mBinding!!.tvIngredients.text = it.dishDetails.ingredients
-            mBinding!!.tvCookingDirection.text = it.dishDetails.directionToCook
+
+            // TODO Step 9: Load the HTML text to TextView.
+            // START
+            // The instruction or you can say the Cooking direction text is in the HTML format so we will you the fromHtml to populate it in the TextView.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                mBinding!!.tvCookingDirection.text = Html.fromHtml(
+                    it.dishDetails.directionToCook,
+                    Html.FROM_HTML_MODE_COMPACT
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                mBinding!!.tvCookingDirection.text = Html.fromHtml(it.dishDetails.directionToCook)
+            }
+            // END
+
             mBinding!!.tvCookingTime.text =
                 resources.getString(R.string.lbl_estimate_cooking_time, it.dishDetails.cookingTime)
 
@@ -163,6 +195,69 @@ class DishDetailsFragment : Fragment() {
             }
         }
     }
+
+    // TODO Step 5: Override the onCreateOptionsMenu and onOptionsItemSelected. Inflate the menu file that we have created.
+    // START
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+
+            // TODO Step 8: Handle Item click action and share the dish recipe details with others.
+            // START
+            R.id.action_share_dish -> {
+
+                val type = "text/plain"
+                val subject = "Checkout this dish recipe"
+                var extraText = ""
+                val shareWith = "Share with"
+
+                mFavDishDetails?.let {
+
+                    var image = ""
+
+                    if (it.imageSource == Constants.DISH_IMAGE_SOURCE_ONLINE) {
+                        image = it.image
+                    }
+
+                    var cookingInstructions = ""
+
+                    // The instruction or you can say the Cooking direction text is in the HTML format so we will you the fromHtml to populate it in the TextView.
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        cookingInstructions = Html.fromHtml(
+                            it.directionToCook,
+                            Html.FROM_HTML_MODE_COMPACT
+                        ).toString()
+                    } else {
+                        @Suppress("DEPRECATION")
+                        cookingInstructions = Html.fromHtml(it.directionToCook).toString()
+                    }
+
+                    extraText =
+                        "$image \n" +
+                                "\n Title:  ${it.title} \n\n Type: ${it.type} \n\n Category: ${it.category}" +
+                                "\n\n Ingredients: \n ${it.ingredients} \n\n Instructions To Cook: \n $cookingInstructions" +
+                                "\n\n Time required to cook the dish approx ${it.cookingTime} minutes."
+                }
+
+
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = type
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                intent.putExtra(Intent.EXTRA_TEXT, extraText)
+                startActivity(Intent.createChooser(intent, shareWith))
+
+                return true
+            }
+            // END
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    // END
 
     override fun onDestroy() {
         super.onDestroy()
