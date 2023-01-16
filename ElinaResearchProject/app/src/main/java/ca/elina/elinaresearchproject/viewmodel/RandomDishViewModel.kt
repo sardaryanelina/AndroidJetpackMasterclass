@@ -9,38 +9,29 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-// TODO Step 1: Create a ViewModel class name as RandomDishViewModel.
-// START
 class RandomDishViewModel : ViewModel() {
 
-    // TODO Step 2: Create an instance for RandomDishApiService class.
-    // START
+    // An instance for RandomDishApiService class.
     private val randomRecipeApiService = RandomDishApiService()
-    // END
 
-    // TODO Step 3: Create an instance of CompositeDisposable class.
-    // START
+    // An instance of CompositeDisposable class.
     /**
      * A disposable container that can hold onto multiple other Disposables and
      * offers time complexity for add(Disposable), remove(Disposable) and delete(Disposable)
      * operations.
      */
     private val compositeDisposable = CompositeDisposable()
-    // END
 
-    // TODO Step 4: Create three instance of API response observer.
-    // START
+    // Three instances of API response observer.
     /**
      * Creates a MutableLiveData with no value assigned to it.
      */
     val loadRandomDish = MutableLiveData<Boolean>()
     val randomDishResponse = MutableLiveData<RandomDish.Recipes?>()
     val randomDishLoadingError = MutableLiveData<Boolean>()
-    // END
 
-    // TODO Step 5: Create a function to initialize all the instance and set the observers to it.
-    // START
-    fun getRandomRecipeFromAPI() {
+    // A function to initialize all the instance and set the observers to it.
+    fun getRandomDishFromAPI() {
         // Define the value of the load random dish.
         loadRandomDish.value = true
 
@@ -85,6 +76,4 @@ class RandomDishViewModel : ViewModel() {
                 })
         )
     }
-    // END
 }
-// END
