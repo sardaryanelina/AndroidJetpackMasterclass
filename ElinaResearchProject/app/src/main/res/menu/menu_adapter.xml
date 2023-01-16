@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO Step 3: Create a menu file with EDIT and DELETE menu items as below in the menu resource package.-->
-<!--START-->
+<!--A menu file with EDIT and DELETE menu items as below in the menu resource package.-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_edit_dish"
@@ -14,4 +13,3 @@
         android:orderInCategory="101"
         android:title="@string/action_delete_dish" />
 </menu>
-    <!--END-->

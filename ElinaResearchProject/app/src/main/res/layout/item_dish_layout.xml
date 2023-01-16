@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- TODO Step 2: Add the more icon for Edit and Delete options.-->
-        <!--START-->
+        <!-- The more icon for Edit and Delete options.-->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -39,7 +38,6 @@
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_more" />
         </FrameLayout>
-        <!--END-->
 
         <TextView
             android:id="@+id/tv_dish_title"

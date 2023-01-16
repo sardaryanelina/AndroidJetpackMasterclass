@@ -1,5 +1,6 @@
 package ca.elina.elinaresearchproject.view.adapters
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ca.elina.elinaresearchproject.R
 import ca.elina.elinaresearchproject.databinding.ItemDishLayoutBinding
 import ca.elina.elinaresearchproject.model.entities.FavDish
+import ca.elina.elinaresearchproject.utils.Constants
+import ca.elina.elinaresearchproject.view.activities.AddUpdateDishActivity
 import ca.elina.elinaresearchproject.view.fragments.AllDishesFragment
 import ca.elina.elinaresearchproject.view.fragments.FavoriteDishesFragment
 import com.bumptech.glide.Glide
@@ -61,37 +64,34 @@ class FavDishAdapter(private val fragment: Fragment) :
             }
         }
 
-        // TODO Step 7: We want the menu icon should be visible only in the AllDishesFragment not in the FavoriteDishesFragment so add the below to achieve it.
-        // START
         if (fragment is AllDishesFragment) {
             holder.ibMore.visibility = View.VISIBLE
         } else if (fragment is FavoriteDishesFragment) {
             holder.ibMore.visibility = View.GONE
         }
-        // END
 
-        // TODO Step 6: Assign the click event to the ib_more icon and Popup the menu items.
-        // START
         holder.ibMore.setOnClickListener {
             val popup = PopupMenu(fragment.context, holder.ibMore)
             //Inflating the Popup using xml file
             popup.menuInflater.inflate(R.menu.menu_adapter, popup.menu)
 
-            // TODO Step 8: Assign the click event to the menu items as below and print the Log or You can display the Toast message for now.
-            // START
             popup.setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_edit_dish) {
-                    Log.i("You have clicked on", "Edit Option of ${dish.title}")
+                    // TODO Step 2: Replace the Log with below code to pass the dish details to AddUpdateDishActivity.
+                    // START
+                    val intent =
+                        Intent(fragment.requireActivity(), AddUpdateDishActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_DISH_DETAILS, dish)
+                    fragment.requireActivity().startActivity(intent)
+                    // END
                 } else if (it.itemId == R.id.action_delete_dish) {
                     Log.i("You have clicked on", "Delete Option of ${dish.title}")
                 }
                 true
             }
-            // END
 
             popup.show() //showing popup menu
         }
-        // END
     }
 
     /**
@@ -113,10 +113,6 @@ class FavDishAdapter(private val fragment: Fragment) :
         // Holds the TextView that will add each item to
         val ivDishImage = view.ivDishImage
         val tvTitle = view.tvDishTitle
-
-        // TODO Step 5: Create a variable for more menu icon.
-        // START
         val ibMore = view.ibMore
-        // END
     }
 }
