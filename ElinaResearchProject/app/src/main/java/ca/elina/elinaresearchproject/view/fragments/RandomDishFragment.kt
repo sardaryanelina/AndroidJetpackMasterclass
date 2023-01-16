@@ -1,5 +1,6 @@
 package ca.elina.elinaresearchproject.view.fragments
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -31,6 +32,12 @@ class RandomDishFragment : Fragment() {
 
     private lateinit var mRandomDishViewModel: RandomDishViewModel
 
+    // TODO Step 3: Create a global variable for Progress Dialog
+    // START
+    // A global variable for Progress Dialog
+    private var mProgressDialog: Dialog? = null
+    // END
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,8 +58,6 @@ class RandomDishFragment : Fragment() {
 
         randomDishViewModelObserver()
 
-        // TODO Step 2: Set the setOnRefreshListener of SwipeRefreshLayout as below and call the getRandomDishFromAPI function to get the new dish details on the same screen.
-        // START
         /**
          * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
          * performs a swipe-to-refresh gesture.
@@ -62,7 +67,6 @@ class RandomDishFragment : Fragment() {
             // The method calls setRefreshing(false) when it's finished.
             mRandomDishViewModel.getRandomDishFromAPI()
         }
-        // END
     }
 
     /**
@@ -76,12 +80,9 @@ class RandomDishFragment : Fragment() {
                 randomDishResponse?.let {
                     Log.i("Random Dish Response", "${randomDishResponse.recipes[0]}")
 
-                    // TODO Step 8: Hide the Loading ProgressBar of SwipeRefreshLayout once the response is success.
-                    // START
                     if (mBinding!!.srlRandomDish.isRefreshing) {
                         mBinding!!.srlRandomDish.isRefreshing = false
                     }
-                    // END
 
                     setRandomDishResponseInUI(randomDishResponse.recipes[0])
                 }
@@ -93,18 +94,25 @@ class RandomDishFragment : Fragment() {
                 dataError?.let {
                     Log.i("Random Dish API Error", "$dataError")
 
-                    // TODO Step 9: Hide the Loading ProgressBar of SwipeRefreshLayout when there is an error from API.
-                    // START
                     if (mBinding!!.srlRandomDish.isRefreshing) {
                         mBinding!!.srlRandomDish.isRefreshing = false
                     }
-                    // END
                 }
             })
 
         mRandomDishViewModel.loadRandomDish.observe(viewLifecycleOwner, Observer { loadRandomDish ->
             loadRandomDish?.let {
                 Log.i("Random Dish Loading", "$loadRandomDish")
+
+                // TODO Step 6: Show the progress dialog if the SwipeRefreshLayout is not visible and hide when the usage is completed.
+                // START
+                // Show the progress dialog if the SwipeRefreshLayout is not visible and hide when the usage is completed.
+                if (loadRandomDish && !mBinding!!.srlRandomDish.isRefreshing) {
+                    showCustomProgressDialog() // Used to show the progress dialog
+                } else {
+                    hideProgressDialog()
+                }
+                // END
             }
         })
     }
@@ -164,24 +172,17 @@ class RandomDishFragment : Fragment() {
                 recipe.readyInMinutes.toString()
             )
 
-        // TODO Step 7: By default load the favorite image button as unselected.
-        // START
         mBinding!!.ivFavoriteDish.setImageDrawable(
             ContextCompat.getDrawable(
                 requireActivity(),
                 R.drawable.ic_favorite_unselected
             )
         )
-        // END
 
-        // TODO Step 3: Create a variable to avoid the duplication of items that is added by click on the Favorite image to add the dish details to local database.
-        // START
         var addedToFavorite = false
-        // END
 
         mBinding!!.ivFavoriteDish.setOnClickListener {
 
-            // TODO Step 6: Handle the condition based on the variable that we have defined and show the Toast message.
             if (addedToFavorite) {
                 Toast.makeText(
                     requireActivity(),
@@ -208,10 +209,7 @@ class RandomDishFragment : Fragment() {
 
                 mFavDishViewModel.insert(randomDishDetails)
 
-                // TODO Step 4: Update the value of variable.
-                // START
                 addedToFavorite = true
-                // END
 
                 mBinding!!.ivFavoriteDish.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -233,4 +231,35 @@ class RandomDishFragment : Fragment() {
         super.onDestroy()
         mBinding = null
     }
+
+    // TODO Step 4: Create a function to show the Custom Progress Dialog.
+    // START
+    /**
+     * A function is used to show the Custom Progress Dialog.
+     */
+    private fun showCustomProgressDialog() {
+        mProgressDialog = Dialog(requireActivity())
+
+        mProgressDialog?.let {
+            /*Set the screen content from a layout resource.
+        The resource will be inflated, adding all top-level views to the screen.*/
+            it.setContentView(R.layout.dialog_custom_progress)
+
+            //Start the dialog and display it on screen.
+            it.show()
+        }
+    }
+    // END
+
+    // TODO Step 5: Create a function to hide the custom progress dialog.
+    // START
+    /**
+     * This function is used to dismiss the progress dialog if it is visible to user.
+     */
+    private fun hideProgressDialog() {
+        mProgressDialog?.let {
+            it.dismiss()
+        }
+    }
+    // END
 }

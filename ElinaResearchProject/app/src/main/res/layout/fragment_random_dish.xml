@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--fragment_notifications refactored to fragment_random.-->
-<!--TODO Step 1: Add the id to the SwipeRefreshLayout.-->
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
