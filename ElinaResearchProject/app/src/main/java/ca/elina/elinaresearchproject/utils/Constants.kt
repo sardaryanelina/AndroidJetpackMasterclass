@@ -36,6 +36,13 @@ object Constants {
     const val TAGS_VALUE: String = "vegetarian, dessert"
     const val NUMBER_VALUE: Int = 1
 
+    // TODO Step 3: Add the constants that we will use while building the Notification.
+    // START
+    const val NOTIFICATION_ID = "FavDish_notification_id"
+    const val NOTIFICATION_NAME = "FavDish"
+    const val NOTIFICATION_CHANNEL = "FavDish_channel_01"
+    // END
+
     /**
      * This function will return the Dish Type List items.
      */

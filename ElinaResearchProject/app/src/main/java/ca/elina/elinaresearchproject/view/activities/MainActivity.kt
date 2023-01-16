@@ -1,8 +1,8 @@
 package ca.elina.elinaresearchproject.view.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -14,6 +14,7 @@ import androidx.work.*
 import ca.elina.elinaresearchproject.R
 import ca.elina.elinaresearchproject.databinding.ActivityMainBinding
 import ca.elina.elinaresearchproject.model.notification.NotifyWorker
+import ca.elina.elinaresearchproject.utils.Constants
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +40,19 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(mNavController, appBarConfiguration)
         mBinding.navView.setupWithNavController(mNavController) // use ViewBinding
+
+        // TODO Step 19: Handle the Notification when user clicks on it.
+        // START
+        if (intent.hasExtra(Constants.NOTIFICATION_ID)) {
+            val notificationId = intent.getIntExtra(Constants.NOTIFICATION_ID, 0)
+            Log.i("Notification Id", "$notificationId")
+
+            // The Random Dish Fragment is selected when user is redirect in the app via Notification.
+            mBinding.navView.selectedItemId = R.id.navigation_random_dish
+        }
+        // END
+
+        startWork()
     }
 
     // Override the onSupportNavigateUp method.
@@ -70,8 +84,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.navView.visibility = View.VISIBLE
     }
 
-    // TODO Step 4: Create function to setup the Constraints as below.
-    // START
+    // A function to setup the Constraints as below.
     /**
      * Constraints ensure that work is deferred until optimal conditions are met.
      *
@@ -86,10 +99,8 @@ class MainActivity : AppCompatActivity() {
         .setRequiresCharging(false)
         .setRequiresBatteryNotLow(true)                 // if the battery is not low
         .build()
-    // END
 
-    // TODO Step 5: Create function to setup the PeriodicWorkRequestBuilder as below.
-    // START
+    // A function to setup the PeriodicWorkRequestBuilder as below.
     /**
      * You can use any of the work request builder that are available to use.
      * We will you the PeriodicWorkRequestBuilder as we want to execute the code periodically.
@@ -103,10 +114,8 @@ class MainActivity : AppCompatActivity() {
     private fun createWorkRequest() = PeriodicWorkRequestBuilder<NotifyWorker>(15, TimeUnit.MINUTES)
         .setConstraints(createConstraints())
         .build()
-    // END
 
-    // TODO Step 6: Create a function to startWork and pass the required params as below.
-    // START
+    // A function to startWork and pass the required params as below.
     private fun startWork() {
 
         /* enqueue a work, ExistingPeriodicWorkPolicy.KEEP means that if this work already exists, it will be kept
@@ -118,5 +127,4 @@ class MainActivity : AppCompatActivity() {
                 createWorkRequest() // Pass the WorkRequest
             )
     }
-    // END
 }
