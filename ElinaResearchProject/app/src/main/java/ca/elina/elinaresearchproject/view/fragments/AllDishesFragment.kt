@@ -224,9 +224,7 @@ class AllDishesFragment : Fragment() {
                 }
             }
         } else {
-
-            // TODO Step 4: Remove the log and replace it with filtered list as below.
-            // START
+            // Filtered list.
             mFavDishViewModel.getFilteredList(filterItemSelection)
                 .observe(viewLifecycleOwner) { dishes ->
                     dishes.let {
@@ -243,7 +241,6 @@ class AllDishesFragment : Fragment() {
                         }
                     }
                 }
-            // END
         }
     }
 }

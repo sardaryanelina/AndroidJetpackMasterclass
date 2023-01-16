@@ -67,8 +67,7 @@ interface FavDishDao {
     @Delete
     suspend fun deleteFavDishDetails(favDish: FavDish)
 
-    // TODO Step 1: Create a function to get the list of dishes based on the dish type from the database.
-    // START
+    // A function to get the list of dishes based on the dish type from the database.
     /**
      * A function to get the list of dishes based on the dish type from the database.
      *
@@ -76,5 +75,4 @@ interface FavDishDao {
      */
     @Query("SELECT * FROM FAV_DISHES_TABLE WHERE type = :filterType")
     fun getFilteredDishesList(filterType: String): Flow<List<FavDish>>
-    // END
 }

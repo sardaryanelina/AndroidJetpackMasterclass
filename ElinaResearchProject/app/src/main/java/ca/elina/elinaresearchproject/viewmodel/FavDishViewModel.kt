@@ -55,15 +55,13 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
         repository.deleteFavDishData(dish)
     }
 
-    // TODO Step 3: Get the filtered list of dishes based on the dish type selection.
-    // START
+    // Get the filtered list of dishes based on the dish type selection.
     /**
      * A function to get the filtered list of dishes based on the dish type selection.
      *
      * @param value - dish type selection
      */
     fun getFilteredList(value: String): LiveData<List<FavDish>> = repository.filteredListDishes(value).asLiveData()
-    // END
 }
 
 /**
