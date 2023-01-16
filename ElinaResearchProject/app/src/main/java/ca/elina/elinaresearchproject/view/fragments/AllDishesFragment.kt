@@ -3,6 +3,7 @@ package ca.elina.elinaresearchproject.view.fragments
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -35,6 +36,17 @@ class AllDishesFragment : Fragment() {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
 
+    // TODO Step 1: Make the global variable for FavDishAdapter class as below instead of local.
+    // START
+    // A global variable for FavDishAdapter Class
+    private lateinit var mFavDishAdapter: FavDishAdapter
+    // END
+
+    // TODO Step 3: Make the CustomItemsListDialog as global instead of local as below.
+    // START
+    private lateinit var mCustomListDialog: Dialog
+    // END
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -56,9 +68,10 @@ class AllDishesFragment : Fragment() {
         // Set the LayoutManager that this RecyclerView will use.
         mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
         // Adapter class is initialized and list is passed in the param.
-        val favDishAdapter = FavDishAdapter(this@AllDishesFragment)
+        // TODO Step 2: Make this variable as global
+        mFavDishAdapter = FavDishAdapter(this@AllDishesFragment)
         // adapter instance is set to the recyclerview to inflate the items.
-        mBinding.rvDishesList.adapter = favDishAdapter
+        mBinding.rvDishesList.adapter = mFavDishAdapter
 
         /**
          * Add an observer on the LiveData returned by getAllDishesList.
@@ -72,7 +85,7 @@ class AllDishesFragment : Fragment() {
                     mBinding.rvDishesList.visibility = View.VISIBLE
                     mBinding.tvNoDishesAddedYet.visibility = View.GONE
 
-                    favDishAdapter.dishesList(it)
+                    mFavDishAdapter.dishesList(it)
                 } else {
 
                     mBinding.rvDishesList.visibility = View.GONE
@@ -114,13 +127,10 @@ class AllDishesFragment : Fragment() {
 
         when (item.itemId) {
 
-            // TODO Step 6: Assign the item click and show the filter list dialog.
-            // START
             R.id.action_filter_dishes -> {
                 filterDishesListDialog()
                 return true
             }
-            // END
 
             R.id.action_add_dish -> {
                 startActivity(Intent(requireActivity(), AddUpdateDishActivity::class.java))
@@ -135,7 +145,7 @@ class AllDishesFragment : Fragment() {
      *
      * @param dish - Dish details that we want to delete.
      */
-    fun deleteStudent(dish: FavDish) {
+    fun deleteDish(dish: FavDish) {
         val builder = AlertDialog.Builder(requireActivity())
         //set title for alert dialog
         builder.setTitle(resources.getString(R.string.title_delete_dish))
@@ -159,38 +169,75 @@ class AllDishesFragment : Fragment() {
         alertDialog.show()  // show the dialog to UI
     }
 
-    // TODO Step 4: Create a function to show the filter items in the custom list dialog.
-    // START
     /**
      * A function to launch the custom dialog.
      */
     private fun filterDishesListDialog() {
-        val customListDialog = Dialog(requireActivity())
+        // TODO Step 4: Make this variable as global.
+        mCustomListDialog = Dialog(requireActivity())
 
         val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
 
         /*Set the screen content from a layout resource.
         The resource will be inflated, adding all top-level views to the screen.*/
-        customListDialog.setContentView(binding.root)
+        mCustomListDialog.setContentView(binding.root)
 
         binding.tvTitle.text = resources.getString(R.string.title_select_item_to_filter)
 
         val dishTypes = Constants.dishTypes()
-        // TODO Step 5: Add the 0 element to  get ALL items.
         dishTypes.add(0, Constants.ALL_ITEMS)
 
         // Set the LayoutManager that this RecyclerView will use.
         binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
         // Adapter class is initialized and list is passed in the param.
+        // TODO Step 8: Pass the required param as below.
+        // START
         val adapter = CustomListItemAdapter(
             requireActivity(),
+            this@AllDishesFragment,
             dishTypes,
             Constants.FILTER_SELECTION
         )
+        // END
         // adapter instance is set to the recyclerview to inflate the items.
         binding.rvList.adapter = adapter
         //Start the dialog and display it on screen.
-        customListDialog.show()
+        mCustomListDialog.show()
+    }
+
+
+    // TODO Step 5: Create a function to get the filter item selection and get the list from database accordingly.
+    // START
+    /**
+     * A function to get the filter item selection and get the list from database accordingly.
+     *
+     * @param filterItemSelection
+     */
+    fun filterSelection(filterItemSelection: String) {
+
+        mCustomListDialog.dismiss()
+
+        Log.i("Filter Selection", filterItemSelection)
+
+        if (filterItemSelection == Constants.ALL_ITEMS) {
+            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner) { dishes ->
+                dishes.let {
+                    if (it.isNotEmpty()) {
+
+                        mBinding.rvDishesList.visibility = View.VISIBLE
+                        mBinding.tvNoDishesAddedYet.visibility = View.GONE
+
+                        mFavDishAdapter.dishesList(it)
+                    } else {
+
+                        mBinding.rvDishesList.visibility = View.GONE
+                        mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                    }
+                }
+            }
+        } else {
+            Log.i("Filter List", "Get Filter List")
+        }
     }
     // END
 }

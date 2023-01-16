@@ -3,13 +3,16 @@ package ca.elina.elinaresearchproject.view.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import ca.elina.elinaresearchproject.databinding.ItemCustomListLayoutBinding
 import ca.elina.elinaresearchproject.view.activities.AddUpdateDishActivity
+import ca.elina.elinaresearchproject.view.fragments.AllDishesFragment
 
-
+// TODO Step 6: Add one more param for fragment as below.
 class CustomListItemAdapter(
     private val activity: Activity,
+    private val fragment: Fragment?,
     private val listItems: List<String>,
     private val selection: String
 ) :
@@ -43,10 +46,15 @@ class CustomListItemAdapter(
 
         holder.tvText.text = item
 
-        // Define the ItemView click event and send the result to the base class.
         holder.itemView.setOnClickListener {
+
             if (activity is AddUpdateDishActivity) {
                 activity.selectedListItem(item, selection)
+            }
+
+            // TODO Step 9: Call the function and pass the required details.
+            if (fragment is AllDishesFragment) {
+                fragment.filterSelection(item)
             }
         }
     }
