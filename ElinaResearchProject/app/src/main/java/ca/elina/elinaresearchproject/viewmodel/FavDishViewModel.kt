@@ -38,8 +38,6 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
         repository.updateFavDishData(dish)
     }
 
-    // TODO Step 3: Get the list of favorite dishes that we can populate in the UI.
-    // START
     // Get the list of favorite dishes that we can populate in the UI.
     /** Using LiveData and caching what favoriteDishes returns has several benefits:
      * We can put an observer on the data (instead of polling for changes) and only
@@ -47,6 +45,16 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
      * Repository is completely separated from the UI through the ViewModel.
      */
     val favoriteDishes: LiveData<List<FavDish>> = repository.favoriteDishes.asLiveData()
+
+    // TODO Step 3: Launching a new coroutine to delete the data.
+    // START
+    /**
+     * Launching a new coroutine to delete the data in a non-blocking way.
+     */
+    fun delete(dish: FavDish) = viewModelScope.launch {
+        // Call the repository function and pass the details.
+        repository.deleteFavDishData(dish)
+    }
     // END
 }
 

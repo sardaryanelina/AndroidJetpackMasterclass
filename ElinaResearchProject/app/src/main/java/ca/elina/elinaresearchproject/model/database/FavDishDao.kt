@@ -1,9 +1,6 @@
 package ca.elina.elinaresearchproject.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import ca.elina.elinaresearchproject.model.entities.FavDish
 import kotlinx.coroutines.flow.Flow
 
@@ -54,12 +51,21 @@ interface FavDishDao {
     @Update
     suspend fun updateFavDishDetails(favDish: FavDish)
 
-    // TODO Step 1: Create a function to get the list of favorite dishes from the database.
-    // START
+    // A function to get the list of favorite dishes from the database.
     /**
      * SQLite does not have a boolean data type. Room maps it to an INTEGER column, mapping true to 1 and false to 0.
      */
     @Query("SELECT * FROM FAV_DISHES_TABLE WHERE favorite_dish = 1")
     fun getFavoriteDishesList(): Flow<List<FavDish>>
+
+    // TODO Step 1: Create a suspend function to delete the dish item from database.
+    // START
+    /**
+     * A function to delete favorite dish details from the local database using Room.
+     *
+     * @param favDish - Here we will pass the entity class with details that we want to delete.
+     */
+    @Delete
+    suspend fun deleteFavDishDetails(favDish: FavDish)
     // END
 }

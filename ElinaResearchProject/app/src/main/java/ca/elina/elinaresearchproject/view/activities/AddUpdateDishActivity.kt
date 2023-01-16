@@ -69,10 +69,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     // A global variable for the custom list dialog.
     private lateinit var mCustomListDialog: Dialog
 
-    // TODO Step 3: Create a global variable for dish details that we will receive via intent.
-    // START
     private var mFavDishDetails: FavDish? = null
-    // END
 
     /**
      * To create the ViewModel we used the viewModels delegate, passing in an instance of our FavDishViewModelFactory.
@@ -88,18 +85,12 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mBinding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        // TODO Step 4: Get the dish details from intent extra and initialize the mFavDishDetails variable.
-        // START
         if (intent.hasExtra(Constants.EXTRA_DISH_DETAILS)) {
             mFavDishDetails = intent.getParcelableExtra(Constants.EXTRA_DISH_DETAILS)
         }
-        // END
 
-        // order is important, so setupActionBar should be after we set mFavDishDetails
         setupActionBar()
 
-        // TODO Step 7: Set the existing dish details to the view to edit.
-        // START
         mFavDishDetails?.let {
             if (it.id != 0) {
                 mImagePath = it.image
@@ -120,7 +111,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 mBinding.btnAddDish.text = resources.getString(R.string.lbl_update_dish)
             }
         }
-        // END
 
         mBinding.ivAddDishImage.setOnClickListener(this@AddUpdateDishActivity)
 
@@ -237,9 +227,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     else -> {
 
-                        // TODO Step 8: Update the data and pass the details to ViewModel to Insert or Update
-                        // START
-
                         var dishID = 0
                         var imageSource = Constants.DISH_IMAGE_SOURCE_LOCAL
                         var favoriteDish = false
@@ -288,7 +275,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                             // You even print the log if Toast is not displayed on emulator
                             Log.e("Updating", "Success")
                         }
-                        // END
 
                         // Finish the Activity
                         finish()
@@ -397,8 +383,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
      */
     private fun setupActionBar() {
         setSupportActionBar(mBinding.toolbarAddDishActivity)
-        // TODO Step 5: Update the title accordingly "ADD" or "UPDATE".
-        // START
         if (mFavDishDetails != null && mFavDishDetails!!.id != 0) {
             supportActionBar?.let {
                 it.title = resources.getString(R.string.title_edit_dish)
@@ -408,7 +392,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 it.title = resources.getString(R.string.title_add_dish)
             }
         }
-        // END
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)

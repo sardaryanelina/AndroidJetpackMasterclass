@@ -1,7 +1,6 @@
 package ca.elina.elinaresearchproject.view.adapters
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,15 +76,17 @@ class FavDishAdapter(private val fragment: Fragment) :
 
             popup.setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_edit_dish) {
-                    // TODO Step 2: Replace the Log with below code to pass the dish details to AddUpdateDishActivity.
-                    // START
                     val intent =
                         Intent(fragment.requireActivity(), AddUpdateDishActivity::class.java)
                     intent.putExtra(Constants.EXTRA_DISH_DETAILS, dish)
                     fragment.requireActivity().startActivity(intent)
-                    // END
                 } else if (it.itemId == R.id.action_delete_dish) {
-                    Log.i("You have clicked on", "Delete Option of ${dish.title}")
+                    // TODO Step 6: Remove the log and call the function that we have created to delete.
+                    // START
+                    if (fragment is AllDishesFragment) {
+                        fragment.deleteDish(dish)
+                    }
+                    // END
                 }
                 true
             }

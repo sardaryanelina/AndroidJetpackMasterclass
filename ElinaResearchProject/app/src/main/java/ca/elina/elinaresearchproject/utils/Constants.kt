@@ -12,10 +12,8 @@ object Constants {
     const val DISH_IMAGE_SOURCE_LOCAL: String = "Local"
     const val DISH_IMAGE_SOURCE_ONLINE: String = "Online"
 
-    // TODO Step 1: Create a constant variable for passing the DishDetails to AddUpdateDishActivity.
-    // START
+    // A constant variable for passing the DishDetails to AddUpdateDishActivity.
     const val EXTRA_DISH_DETAILS: String = "DishDetails"
-    // END
 
     /**
      * This function will return the Dish Type List items.
