@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import ca.elina.elinaresearchproject.R
 import ca.elina.elinaresearchproject.application.FavDishApplication
 import ca.elina.elinaresearchproject.databinding.FragmentFavoriteDishesBinding
+import ca.elina.elinaresearchproject.model.entities.FavDish
+import ca.elina.elinaresearchproject.view.activities.MainActivity
 import ca.elina.elinaresearchproject.view.adapters.FavDishAdapter
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModel
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
@@ -19,10 +22,7 @@ import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
 // DashboardFragment refactored to FavoriteFragment.
 class FavoriteDishesFragment : Fragment() {
 
-    // TODO Step 3: Create an instance of ViewBinding.
-    // START
     private var mBinding: FragmentFavoriteDishesBinding? = null
-    // END
 
     /**
      * To create the ViewModel we used the viewModels delegate, passing in an instance of our FavDishViewModelFactory.
@@ -37,11 +37,8 @@ class FavoriteDishesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // TODO Step 4: Initialize the mBinding.
-        // START
         mBinding = FragmentFavoriteDishesBinding.inflate(inflater, container, false)
         return mBinding!!.root
-        // END
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,9 +50,6 @@ class FavoriteDishesFragment : Fragment() {
          */
         mFavDishViewModel.favoriteDishes.observe(viewLifecycleOwner) { dishes ->
             dishes.let {
-
-                // TODO Step 5: Remove the Logs and display the list of Favorite Dishes using RecyclerView. Here we will not create a separate adapter class we cas use the same that we have created for AllDishes.
-                // START
 
                 // Set the LayoutManager that this RecyclerView will use.
                 mBinding!!.rvFavoriteDishesList.layoutManager =
@@ -74,16 +68,44 @@ class FavoriteDishesFragment : Fragment() {
                     mBinding!!.rvFavoriteDishesList.visibility = View.GONE
                     mBinding!!.tvNoFavoriteDishesAvailable.visibility = View.VISIBLE
                 }
-                // END
             }
         }
     }
 
-    // TODO Step 6: Override the onDestroy method and make the mBinding null where the method is executed.
+    // TODO Step 5: Override the onResume function to show the BottomNavigationView when the fragment is completely loaded.
     // START
+    override fun onResume() {
+        super.onResume()
+
+        if (requireActivity() is MainActivity) {
+            (activity as MainActivity?)!!.showBottomNavigationView()
+        }
+    }
+    // END
+
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
+    }
+
+    // TODO Step 2: Create a function to navigate to the Dish Details Fragment.
+    // START
+    /**
+     * A function to navigate to the Dish Details Fragment.
+     *
+     * @param favDish
+     */
+    fun dishDetails(favDish: FavDish) {
+
+        // TODO Step 4: Hide the BottomNavigationView while navigating to the DetailsFragment.
+        // START
+        if (requireActivity() is MainActivity) {
+            (activity as MainActivity?)!!.hideBottomNavigationView()
+        }
+        // END
+
+        findNavController()
+            .navigate(FavoriteDishesFragmentDirections.actionFavoriteDishesToDishDetails(favDish))
     }
     // END
 }

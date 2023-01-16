@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ca.elina.elinaresearchproject.databinding.ItemDishLayoutBinding
 import ca.elina.elinaresearchproject.model.entities.FavDish
 import ca.elina.elinaresearchproject.view.fragments.AllDishesFragment
+import ca.elina.elinaresearchproject.view.fragments.FavoriteDishesFragment
 import com.bumptech.glide.Glide
 
 class FavDishAdapter(private val fragment: Fragment) :
@@ -49,9 +50,14 @@ class FavDishAdapter(private val fragment: Fragment) :
 
         //  Assign the click event to the itemview and perform the required action.
         holder.itemView.setOnClickListener {
+            // TODO Step 3: Add the else condition for Favorite Dishes Fragment as below and call the function to navigate the item to Details Fragment.
+            // START
             if (fragment is AllDishesFragment) {
                 fragment.dishDetails(dish) // Pass the required param value.
+            } else if (fragment is FavoriteDishesFragment) {
+                fragment.dishDetails(dish)
             }
+            // END
         }
     }
 
