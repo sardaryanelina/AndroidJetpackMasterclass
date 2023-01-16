@@ -31,11 +31,14 @@ class FavDishRepository(private val favDishDao: FavDishDao) {
     // Observed Flow will notify the observer when the data has changed.
     val allDishesList: Flow<List<FavDish>> = favDishDao.getAllDishesList()
 
-    // TODO Step 2: Create a suspend function on workerThread to Update the details that can be called from the ViewModel class.
-    // START
+    // A suspend function on workerThread to Update the details that can be called from the ViewModel class.
     @WorkerThread
     suspend fun updateFavDishData(favDish: FavDish) {
         favDishDao.updateFavDishDetails(favDish)
     }
+
+    // TODO Step 2: Get the list of favorite dishes from the DAO and pass it to the ViewModel.
+    // START
+    val favoriteDishes: Flow<List<FavDish>> = favDishDao.getFavoriteDishesList()
     // END
 }

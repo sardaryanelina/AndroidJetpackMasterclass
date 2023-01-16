@@ -36,8 +36,6 @@ class DishDetailsFragment : Fragment() {
 
     private var mBinding: FragmentDishDetailsBinding? = null
 
-    // TODO Step 5: Create an ViewModel instance to access the methods.
-    // START
     /**
      * To create the ViewModel we used the viewModels delegate, passing in an instance of our FavDishViewModelFactory.
      * This is constructed based on the repository retrieved from the FavDishApplication.
@@ -45,7 +43,6 @@ class DishDetailsFragment : Fragment() {
     private val mFavDishViewModel: FavDishViewModel by viewModels {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,8 +111,6 @@ class DishDetailsFragment : Fragment() {
             mBinding!!.tvCookingTime.text =
                 resources.getString(R.string.lbl_estimate_cooking_time, it.dishDetails.cookingTime)
 
-            // TODO Step 10: Set the favorite icon based on the value.
-            // START
             if (args.dishDetails.favoriteDish) {
                 mBinding!!.ivFavoriteDish.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -131,25 +126,14 @@ class DishDetailsFragment : Fragment() {
                     )
                 )
             }
-            // END
         }
 
-        // TODO Step 4: Assign the event to the favorite button.
-        // START
         mBinding!!.ivFavoriteDish.setOnClickListener {
 
-            // TODO Step 6: Update the favorite dish variable based on the current selection. i.e If it true then make it false vice-versa.
-            // START
             args.dishDetails.favoriteDish = !args.dishDetails.favoriteDish
-            // END
 
-            // TODO Step 7: Pass the updated values to ViewModel
-            // START
             mFavDishViewModel.update(args.dishDetails)
-            // END
 
-            // TODO Step 8: Update the icons and display the toast message accordingly.
-            // START
             if (args.dishDetails.favoriteDish) {
                 mBinding!!.ivFavoriteDish.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -177,9 +161,7 @@ class DishDetailsFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            // END
         }
-        // END
     }
 
     override fun onDestroy() {
