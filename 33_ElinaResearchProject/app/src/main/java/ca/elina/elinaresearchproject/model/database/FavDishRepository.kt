@@ -37,8 +37,6 @@ class FavDishRepository(private val favDishDao: FavDishDao) {
         favDishDao.updateFavDishDetails(favDish)
     }
 
-    // TODO Step 2: Get the list of favorite dishes from the DAO and pass it to the ViewModel.
-    // START
+    // Get the list of favorite dishes from the DAO and pass it to the ViewModel.
     val favoriteDishes: Flow<List<FavDish>> = favDishDao.getFavoriteDishesList()
-    // END
 }
