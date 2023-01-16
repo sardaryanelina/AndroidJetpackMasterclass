@@ -54,12 +54,10 @@ interface FavDishDao {
     @Update
     suspend fun updateFavDishDetails(favDish: FavDish)
 
-    // TODO Step 1: Create a function to get the list of favorite dishes from the database.
-    // START
+    // A function to get the list of favorite dishes from the database.
     /**
      * SQLite does not have a boolean data type. Room maps it to an INTEGER column, mapping true to 1 and false to 0.
      */
     @Query("SELECT * FROM FAV_DISHES_TABLE WHERE favorite_dish = 1")
     fun getFavoriteDishesList(): Flow<List<FavDish>>
-    // END
 }
