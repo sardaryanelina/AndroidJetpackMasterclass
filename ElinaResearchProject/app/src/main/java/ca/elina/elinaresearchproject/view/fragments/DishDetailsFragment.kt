@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
@@ -16,10 +17,15 @@ import com.bumptech.glide.request.RequestListener
 import java.io.IOException
 import java.util.*
 import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.request.target.Target
 import ca.elina.elinaresearchproject.R
+import ca.elina.elinaresearchproject.application.FavDishApplication
 import ca.elina.elinaresearchproject.databinding.FragmentDishDetailsBinding
+import ca.elina.elinaresearchproject.viewmodel.FavDishViewModel
+import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
@@ -29,6 +35,17 @@ import ca.elina.elinaresearchproject.databinding.FragmentDishDetailsBinding
 class DishDetailsFragment : Fragment() {
 
     private var mBinding: FragmentDishDetailsBinding? = null
+
+    // TODO Step 5: Create an ViewModel instance to access the methods.
+    // START
+    /**
+     * To create the ViewModel we used the viewModels delegate, passing in an instance of our FavDishViewModelFactory.
+     * This is constructed based on the repository retrieved from the FavDishApplication.
+     */
+    private val mFavDishViewModel: FavDishViewModel by viewModels {
+        FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
+    }
+    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +64,10 @@ class DishDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args: DishDetailsFragmentArgs by navArgs()
+
         args.let {
 
             try {
-                // TODO Step 2: Implement the listeners to get the bitmap.
-                // START
                 // Load the dish image in the ImageView.
                 Glide.with(requireActivity())
                     .load(it.dishDetails.image)
@@ -76,21 +92,15 @@ class DishDetailsFragment : Fragment() {
                             isFirstResource: Boolean
                         ): Boolean {
 
-                            // TODO Step 3: Generate the Palette and set the vibrantSwatch as the background of the view.
-                            // START
-                            resource.let {
-                                Palette.from(resource.toBitmap())
-                                    .generate { palette ->
-                                        val intColor = palette?.vibrantSwatch?.rgb ?: 0
-                                        mBinding!!.rlDishDetailMain.setBackgroundColor(intColor)
-                                    }
-                            }
+                            Palette.from(resource.toBitmap())
+                                .generate { palette ->
+                                    val intColor = palette?.vibrantSwatch?.rgb ?: 0
+                                    mBinding!!.rlDishDetailMain.setBackgroundColor(intColor)
+                                }
                             return false
-                            // END
                         }
                     })
                     .into(mBinding!!.ivDishImage)
-                // END
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -103,7 +113,73 @@ class DishDetailsFragment : Fragment() {
             mBinding!!.tvCookingDirection.text = it.dishDetails.directionToCook
             mBinding!!.tvCookingTime.text =
                 resources.getString(R.string.lbl_estimate_cooking_time, it.dishDetails.cookingTime)
+
+            // TODO Step 10: Set the favorite icon based on the value.
+            // START
+            if (args.dishDetails.favoriteDish) {
+                mBinding!!.ivFavoriteDish.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favorite_selected
+                    )
+                )
+            } else {
+                mBinding!!.ivFavoriteDish.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favorite_unselected
+                    )
+                )
+            }
+            // END
         }
+
+        // TODO Step 4: Assign the event to the favorite button.
+        // START
+        mBinding!!.ivFavoriteDish.setOnClickListener {
+
+            // TODO Step 6: Update the favorite dish variable based on the current selection. i.e If it true then make it false vice-versa.
+            // START
+            args.dishDetails.favoriteDish = !args.dishDetails.favoriteDish
+            // END
+
+            // TODO Step 7: Pass the updated values to ViewModel
+            // START
+            mFavDishViewModel.update(args.dishDetails)
+            // END
+
+            // TODO Step 8: Update the icons and display the toast message accordingly.
+            // START
+            if (args.dishDetails.favoriteDish) {
+                mBinding!!.ivFavoriteDish.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favorite_selected
+                    )
+                )
+
+                Toast.makeText(
+                    requireActivity(),
+                    resources.getString(R.string.msg_added_to_favorites),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                mBinding!!.ivFavoriteDish.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_favorite_unselected
+                    )
+                )
+
+                Toast.makeText(
+                    requireActivity(),
+                    resources.getString(R.string.msg_removed_from_favorite),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            // END
+        }
+        // END
     }
 
     override fun onDestroy() {

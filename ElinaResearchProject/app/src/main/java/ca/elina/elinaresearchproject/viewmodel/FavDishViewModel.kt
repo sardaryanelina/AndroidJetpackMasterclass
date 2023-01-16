@@ -23,13 +23,22 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
         repository.insertFavDishData(dish)
     }
 
-    // Get all the dishes list from the database in the ViewModel to pass it to the UI.
     /** Using LiveData and caching what allDishes returns has several benefits:
      * We can put an observer on the data (instead of polling for changes) and only
      * update the UI when the data actually changes.
      * Repository is completely separated from the UI through the ViewModel.
      */
     val allDishesList: LiveData<List<FavDish>> = repository.allDishesList.asLiveData()
+
+    // TODO Step 3: Create a function to Update and pass the required params.
+    // START
+    /**
+     * Launching a new coroutine to update the data in a non-blocking way
+     */
+    fun update(dish: FavDish) = viewModelScope.launch {
+        repository.updateFavDishData(dish)
+    }
+    // END
 }
 
 /**
@@ -39,7 +48,8 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
  * It will survive configuration changes and even if the Activity is recreated,
  * you'll always get the right instance of the FavDishViewModel class.
  */
-class FavDishViewModelFactory(private val repository: FavDishRepository) : ViewModelProvider.Factory {
+class FavDishViewModelFactory(private val repository: FavDishRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FavDishViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

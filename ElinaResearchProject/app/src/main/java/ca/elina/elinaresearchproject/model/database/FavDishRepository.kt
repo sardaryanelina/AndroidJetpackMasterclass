@@ -30,4 +30,12 @@ class FavDishRepository(private val favDishDao: FavDishDao) {
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
     val allDishesList: Flow<List<FavDish>> = favDishDao.getAllDishesList()
+
+    // TODO Step 2: Create a suspend function on workerThread to Update the details that can be called from the ViewModel class.
+    // START
+    @WorkerThread
+    suspend fun updateFavDishData(favDish: FavDish) {
+        favDishDao.updateFavDishDetails(favDish)
+    }
+    // END
 }

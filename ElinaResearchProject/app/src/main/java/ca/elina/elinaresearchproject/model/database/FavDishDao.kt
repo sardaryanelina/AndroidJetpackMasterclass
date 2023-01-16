@@ -3,10 +3,11 @@ package ca.elina.elinaresearchproject.model.database
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import ca.elina.elinaresearchproject.model.entities.FavDish
 import kotlinx.coroutines.flow.Flow
 
-// Interface FavDishDao that we will use to specify SQL queries and associate them with method calls.
+// FavDishDao interface that we will use to specify SQL queries and associate them with method calls.
 @Dao
 interface FavDishDao {
 
@@ -42,4 +43,16 @@ interface FavDishDao {
      */
     @Query("SELECT * FROM FAV_DISHES_TABLE ORDER BY ID")
     fun getAllDishesList(): Flow<List<FavDish>>
+
+
+    // TODO Step 1: Create a suspend function to update the dish details.
+    // START
+    /**
+     * A function to update favorite dish details to the local database using Room.
+     *
+     * @param favDish - Here we will pass the entity class that we have created with updated details along with "id".
+     */
+    @Update
+    suspend fun updateFavDishDetails(favDish: FavDish)
+    // END
 }
