@@ -50,9 +50,5 @@
     <string name="title_select_item_to_filter">SELECT ITEM TO FILTER</string>
     <string name="msg_already_added_to_favorites">You have already added the dish to your favorites.</string>
     <string name="please_wait">Please Wait&#8230;</string>
-
-    <!--TODO Step 3: Add the string values to the strings.xml-->
-    <!--START-->
     <string name="action_share_dish">Share Dish</string>
-    <!--END-->
 </resources>

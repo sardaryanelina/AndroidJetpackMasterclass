@@ -96,4 +96,11 @@ dependencies {
     // RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    // TODO Step 1: Add the WorkManager dependency
+    // START
+    // Kotlin + coroutines
+    def work_version = "2.5.0"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    // END
 }

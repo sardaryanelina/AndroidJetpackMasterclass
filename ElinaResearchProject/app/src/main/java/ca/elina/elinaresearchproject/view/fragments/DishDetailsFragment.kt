@@ -47,18 +47,12 @@ class DishDetailsFragment : Fragment() {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
 
-    // TODO Step 6: Create a global variable  for Dish Details and assign the args to it.
-    // START
     private var mFavDishDetails: FavDish? = null
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TODO Step 4: Set the setHasOptionsMenu to true.
-        // START
         setHasOptionsMenu(true)
-        // END
     }
 
     override fun onCreateView(
@@ -75,10 +69,7 @@ class DishDetailsFragment : Fragment() {
 
         val args: DishDetailsFragmentArgs by navArgs()
 
-        // TODO Step 7: Initialize the FavDish global variable.
-        // START
         mFavDishDetails = args.dishDetails
-        // END
 
         args.let {
 
@@ -126,8 +117,6 @@ class DishDetailsFragment : Fragment() {
             mBinding!!.tvCategory.text = it.dishDetails.category
             mBinding!!.tvIngredients.text = it.dishDetails.ingredients
 
-            // TODO Step 9: Load the HTML text to TextView.
-            // START
             // The instruction or you can say the Cooking direction text is in the HTML format so we will you the fromHtml to populate it in the TextView.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mBinding!!.tvCookingDirection.text = Html.fromHtml(
@@ -138,7 +127,6 @@ class DishDetailsFragment : Fragment() {
                 @Suppress("DEPRECATION")
                 mBinding!!.tvCookingDirection.text = Html.fromHtml(it.dishDetails.directionToCook)
             }
-            // END
 
             mBinding!!.tvCookingTime.text =
                 resources.getString(R.string.lbl_estimate_cooking_time, it.dishDetails.cookingTime)
@@ -196,8 +184,6 @@ class DishDetailsFragment : Fragment() {
         }
     }
 
-    // TODO Step 5: Override the onCreateOptionsMenu and onOptionsItemSelected. Inflate the menu file that we have created.
-    // START
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_share, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -207,8 +193,6 @@ class DishDetailsFragment : Fragment() {
 
         when (item.itemId) {
 
-            // TODO Step 8: Handle Item click action and share the dish recipe details with others.
-            // START
             R.id.action_share_dish -> {
 
                 val type = "text/plain"
@@ -253,11 +237,9 @@ class DishDetailsFragment : Fragment() {
 
                 return true
             }
-            // END
         }
         return super.onOptionsItemSelected(item)
     }
-    // END
 
     override fun onDestroy() {
         super.onDestroy()
