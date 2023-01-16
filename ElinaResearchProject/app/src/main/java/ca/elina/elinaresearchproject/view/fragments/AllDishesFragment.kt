@@ -36,16 +36,11 @@ class AllDishesFragment : Fragment() {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
 
-    // TODO Step 1: Make the global variable for FavDishAdapter class as below instead of local.
-    // START
     // A global variable for FavDishAdapter Class
     private lateinit var mFavDishAdapter: FavDishAdapter
-    // END
 
-    // TODO Step 3: Make the CustomItemsListDialog as global instead of local as below.
-    // START
+    // A global variable for Filter List Dialog
     private lateinit var mCustomListDialog: Dialog
-    // END
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +63,6 @@ class AllDishesFragment : Fragment() {
         // Set the LayoutManager that this RecyclerView will use.
         mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
         // Adapter class is initialized and list is passed in the param.
-        // TODO Step 2: Make this variable as global
         mFavDishAdapter = FavDishAdapter(this@AllDishesFragment)
         // adapter instance is set to the recyclerview to inflate the items.
         mBinding.rvDishesList.adapter = mFavDishAdapter
@@ -173,7 +167,6 @@ class AllDishesFragment : Fragment() {
      * A function to launch the custom dialog.
      */
     private fun filterDishesListDialog() {
-        // TODO Step 4: Make this variable as global.
         mCustomListDialog = Dialog(requireActivity())
 
         val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
@@ -190,15 +183,12 @@ class AllDishesFragment : Fragment() {
         // Set the LayoutManager that this RecyclerView will use.
         binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
         // Adapter class is initialized and list is passed in the param.
-        // TODO Step 8: Pass the required param as below.
-        // START
         val adapter = CustomListItemAdapter(
             requireActivity(),
             this@AllDishesFragment,
             dishTypes,
             Constants.FILTER_SELECTION
         )
-        // END
         // adapter instance is set to the recyclerview to inflate the items.
         binding.rvList.adapter = adapter
         //Start the dialog and display it on screen.
@@ -206,8 +196,6 @@ class AllDishesFragment : Fragment() {
     }
 
 
-    // TODO Step 5: Create a function to get the filter item selection and get the list from database accordingly.
-    // START
     /**
      * A function to get the filter item selection and get the list from database accordingly.
      *
@@ -236,8 +224,26 @@ class AllDishesFragment : Fragment() {
                 }
             }
         } else {
-            Log.i("Filter List", "Get Filter List")
+
+            // TODO Step 4: Remove the log and replace it with filtered list as below.
+            // START
+            mFavDishViewModel.getFilteredList(filterItemSelection)
+                .observe(viewLifecycleOwner) { dishes ->
+                    dishes.let {
+                        if (it.isNotEmpty()) {
+
+                            mBinding.rvDishesList.visibility = View.VISIBLE
+                            mBinding.tvNoDishesAddedYet.visibility = View.GONE
+
+                            mFavDishAdapter.dishesList(it)
+                        } else {
+
+                            mBinding.rvDishesList.visibility = View.GONE
+                            mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            // END
         }
     }
-    // END
 }

@@ -45,4 +45,15 @@ class FavDishRepository(private val favDishDao: FavDishDao) {
     suspend fun deleteFavDishData(favDish: FavDish) {
         favDishDao.deleteFavDishDetails(favDish)
     }
+
+    // TODO Step 2: Create a function get the filtered list of Dishes based on the selection.
+    // START
+    /**
+     * A function to get the filtered list of Dishes.
+     *
+     * @param value - dish type selection
+     */
+    fun filteredListDishes(value: String): Flow<List<FavDish>> =
+        favDishDao.getFilteredDishesList(value)
+    // END
 }

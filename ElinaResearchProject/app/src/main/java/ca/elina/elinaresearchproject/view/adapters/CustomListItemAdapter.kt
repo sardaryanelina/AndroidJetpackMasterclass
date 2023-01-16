@@ -9,7 +9,6 @@ import ca.elina.elinaresearchproject.databinding.ItemCustomListLayoutBinding
 import ca.elina.elinaresearchproject.view.activities.AddUpdateDishActivity
 import ca.elina.elinaresearchproject.view.fragments.AllDishesFragment
 
-// TODO Step 6: Add one more param for fragment as below.
 class CustomListItemAdapter(
     private val activity: Activity,
     private val fragment: Fragment?,
@@ -52,7 +51,7 @@ class CustomListItemAdapter(
                 activity.selectedListItem(item, selection)
             }
 
-            // TODO Step 9: Call the function and pass the required details.
+            // Call the function and pass the required details.
             if (fragment is AllDishesFragment) {
                 fragment.filterSelection(item)
             }
