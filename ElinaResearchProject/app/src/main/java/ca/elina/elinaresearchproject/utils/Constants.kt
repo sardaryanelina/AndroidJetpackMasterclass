@@ -15,6 +15,12 @@ object Constants {
     // A constant variable for passing the DishDetails to AddUpdateDishActivity.
     const val EXTRA_DISH_DETAILS: String = "DishDetails"
 
+    // TODO Step 7: Add Constants
+    // START
+    const val ALL_ITEMS: String = "All"
+    const val FILTER_SELECTION: String = "FilterSelection"
+    // END
+
     /**
      * This function will return the Dish Type List items.
      */

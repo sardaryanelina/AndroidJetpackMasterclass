@@ -46,8 +46,7 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
      */
     val favoriteDishes: LiveData<List<FavDish>> = repository.favoriteDishes.asLiveData()
 
-    // TODO Step 3: Launching a new coroutine to delete the data.
-    // START
+    // Launching a new coroutine to delete the data.
     /**
      * Launching a new coroutine to delete the data in a non-blocking way.
      */
@@ -55,7 +54,6 @@ class FavDishViewModel(private val repository: FavDishRepository) : ViewModel() 
         // Call the repository function and pass the details.
         repository.deleteFavDishData(dish)
     }
-    // END
 }
 
 /**

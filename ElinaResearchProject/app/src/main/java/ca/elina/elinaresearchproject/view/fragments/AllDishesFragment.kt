@@ -1,5 +1,6 @@
 package ca.elina.elinaresearchproject.view.fragments
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -9,11 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ca.elina.elinaresearchproject.R
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import ca.elina.elinaresearchproject.application.FavDishApplication
+import ca.elina.elinaresearchproject.databinding.DialogCustomListBinding
 import ca.elina.elinaresearchproject.databinding.FragmentAllDishesBinding
 import ca.elina.elinaresearchproject.model.entities.FavDish
+import ca.elina.elinaresearchproject.utils.Constants
 import ca.elina.elinaresearchproject.view.activities.AddUpdateDishActivity
 import ca.elina.elinaresearchproject.view.activities.MainActivity
+import ca.elina.elinaresearchproject.view.adapters.CustomListItemAdapter
 import ca.elina.elinaresearchproject.view.adapters.FavDishAdapter
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModel
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
@@ -77,7 +82,6 @@ class AllDishesFragment : Fragment() {
         }
     }
 
-    // Override the onResume method and call the function to show the BottomNavigationView when user is on the AllDishesFragment.
     override fun onResume() {
         super.onResume()
 
@@ -91,18 +95,14 @@ class AllDishesFragment : Fragment() {
      *
      * @param favDish
      */
-    fun dishDetails(favDish: FavDish) { // add required FavDish param
-        // Call the hideBottomNavigationView function when user wants to navigate to the DishDetailsFragment.
+    fun dishDetails(favDish: FavDish) {
+
         if (requireActivity() is MainActivity) {
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }
 
         findNavController()
-            .navigate(
-                AllDishesFragmentDirections.actionAllDishesToDishDetails(
-                    favDish // Add the required argument favDish to the action
-                )
-            )
+            .navigate(AllDishesFragmentDirections.actionAllDishesToDishDetails(favDish))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -113,6 +113,15 @@ class AllDishesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
+
+            // TODO Step 6: Assign the item click and show the filter list dialog.
+            // START
+            R.id.action_filter_dishes -> {
+                filterDishesListDialog()
+                return true
+            }
+            // END
+
             R.id.action_add_dish -> {
                 startActivity(Intent(requireActivity(), AddUpdateDishActivity::class.java))
                 return true
@@ -121,19 +130,16 @@ class AllDishesFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    // TODO Step 4: Create a function to show an AlertDialog while delete the dish details.
-    // START
     /**
      * Method is used to show the Alert Dialog while deleting the dish details.
      *
      * @param dish - Dish details that we want to delete.
      */
-    fun deleteDish(dish: FavDish) {
+    fun deleteStudent(dish: FavDish) {
         val builder = AlertDialog.Builder(requireActivity())
         //set title for alert dialog
         builder.setTitle(resources.getString(R.string.title_delete_dish))
         //set message for alert dialog
-        // dish.title will replace the percentage sign
         builder.setMessage(resources.getString(R.string.msg_delete_dish_dialog, dish.title))
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
@@ -151,6 +157,40 @@ class AllDishesFragment : Fragment() {
         // Set other dialog properties
         alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
         alertDialog.show()  // show the dialog to UI
+    }
+
+    // TODO Step 4: Create a function to show the filter items in the custom list dialog.
+    // START
+    /**
+     * A function to launch the custom dialog.
+     */
+    private fun filterDishesListDialog() {
+        val customListDialog = Dialog(requireActivity())
+
+        val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+
+        /*Set the screen content from a layout resource.
+        The resource will be inflated, adding all top-level views to the screen.*/
+        customListDialog.setContentView(binding.root)
+
+        binding.tvTitle.text = resources.getString(R.string.title_select_item_to_filter)
+
+        val dishTypes = Constants.dishTypes()
+        // TODO Step 5: Add the 0 element to  get ALL items.
+        dishTypes.add(0, Constants.ALL_ITEMS)
+
+        // Set the LayoutManager that this RecyclerView will use.
+        binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
+        // Adapter class is initialized and list is passed in the param.
+        val adapter = CustomListItemAdapter(
+            requireActivity(),
+            dishTypes,
+            Constants.FILTER_SELECTION
+        )
+        // adapter instance is set to the recyclerview to inflate the items.
+        binding.rvList.adapter = adapter
+        //Start the dialog and display it on screen.
+        customListDialog.show()
     }
     // END
 }
