@@ -15,6 +15,20 @@ object Constants {
     const val ALL_ITEMS: String = "All"
     const val FILTER_SELECTION: String = "FilterSelection"
 
+    // TODO Step 2: Define the API key and query param of the URL as that we are going to use in the URL to get the response.
+    // START
+
+    const val API_ENDPOINT:String = "recipes/random"
+
+    // API KEY VALUE from the spoonacular console.
+    const val API_KEY_VALUE: String = "d6d40c90ae8846168e4bb9ac9fb4df10"
+
+    // KEY PARAMS
+    const val API_KEY: String = "apiKey"
+    const val LIMIT_LICENSE: String = "limitLicense"
+    const val TAGS: String = "tags"
+    const val NUMBER: String = "number"
+    // END
 
     /**
      * This function will return the Dish Type List items.
