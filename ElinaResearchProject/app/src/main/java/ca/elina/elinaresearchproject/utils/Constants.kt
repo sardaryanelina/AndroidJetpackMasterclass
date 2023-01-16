@@ -15,9 +15,12 @@ object Constants {
     const val ALL_ITEMS: String = "All"
     const val FILTER_SELECTION: String = "FilterSelection"
 
-    // TODO Step 2: Define the API key and query param of the URL as that we are going to use in the URL to get the response.
+    // TODO Step 2: Add the BASE URL of the API.
     // START
+    const val BASE_URL = "https://api.spoonacular.com/"
+    // END
 
+    // Define the API key and query param of the URL as that we are going to use in the URL to get the response.
     const val API_ENDPOINT:String = "recipes/random"
 
     // API KEY VALUE from the spoonacular console.
@@ -28,6 +31,13 @@ object Constants {
     const val LIMIT_LICENSE: String = "limitLicense"
     const val TAGS: String = "tags"
     const val NUMBER: String = "number"
+
+    // TODO Step 5: Add the default values to the constants.
+    // START
+    // KEY PARAMS VALUES ==> YOU CAN CHANGE AS PER REQUIREMENT FROM HERE TO MAKE THE DIFFERNCE IN THE API RESPONSE.
+    const val LIMIT_LICENSE_VALUE: Boolean = true
+    const val TAGS_VALUE: String = "vegetarian, dessert"
+    const val NUMBER_VALUE: Int = 1
     // END
 
     /**

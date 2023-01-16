@@ -6,8 +6,7 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-// TODO Step 3: Create a package called as "network" and create an interface to define the endpoint of the API that we are going to use.
-// START
+// An interface to define the endpoint of the API that we are going to use.
 interface RandomDishAPI {
 
     /**
@@ -18,7 +17,7 @@ interface RandomDishAPI {
      *
      */
     @GET(Constants.API_ENDPOINT)
-    fun getDishes(
+    fun getRandomDish(
         // Query parameter appended to the URL. This is the best practice instead of appending it as we have done in the browser.
         @Query(Constants.API_KEY) apiKey: String,
         @Query(Constants.LIMIT_LICENSE) limitLicense: Boolean,
@@ -28,4 +27,3 @@ interface RandomDishAPI {
 
     // For more details have a look at http://reactivex.io/documentation/single.html or http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html
 }
-// END
