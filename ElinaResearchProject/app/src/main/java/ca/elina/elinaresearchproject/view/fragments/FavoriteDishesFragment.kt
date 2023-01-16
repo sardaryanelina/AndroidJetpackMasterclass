@@ -8,16 +8,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import ca.elina.elinaresearchproject.R
 import ca.elina.elinaresearchproject.application.FavDishApplication
+import ca.elina.elinaresearchproject.databinding.FragmentFavoriteDishesBinding
+import ca.elina.elinaresearchproject.view.adapters.FavDishAdapter
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModel
 import ca.elina.elinaresearchproject.viewmodel.FavDishViewModelFactory
 
 // DashboardFragment refactored to FavoriteFragment.
 class FavoriteDishesFragment : Fragment() {
 
-    // TODO Step  5: Create an instance of ViewModel to access the methods that are necessary to populate the UI.
+    // TODO Step 3: Create an instance of ViewBinding.
     // START
+    private var mBinding: FragmentFavoriteDishesBinding? = null
+    // END
+
     /**
      * To create the ViewModel we used the viewModels delegate, passing in an instance of our FavDishViewModelFactory.
      * This is constructed based on the repository retrieved from the FavDishApplication.
@@ -26,42 +32,58 @@ class FavoriteDishesFragment : Fragment() {
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
 
-    // END
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_favorite_dishes, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        textView.text = "Favorite Dishes Fragment"
-        return root
+    ): View {
+        // TODO Step 4: Initialize the mBinding.
+        // START
+        mBinding = FragmentFavoriteDishesBinding.inflate(inflater, container, false)
+        return mBinding!!.root
+        // END
     }
 
-    // TODO Step 4: Override the onViewCreated method.
-    // START
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO Step 6: Add an observer to get the list of updated favorite dishes.
-        // START
         /**
          * Add an observer on the LiveData returned by getFavoriteDishesList.
          * The onChanged() method fires when the observed data changes and the activity is in the foreground.
          */
         mFavDishViewModel.favoriteDishes.observe(viewLifecycleOwner) { dishes ->
             dishes.let {
+
+                // TODO Step 5: Remove the Logs and display the list of Favorite Dishes using RecyclerView. Here we will not create a separate adapter class we cas use the same that we have created for AllDishes.
+                // START
+
+                // Set the LayoutManager that this RecyclerView will use.
+                mBinding!!.rvFavoriteDishesList.layoutManager =
+                    GridLayoutManager(requireActivity(), 2)
+                // Adapter class is initialized and list is passed in the param.
+                val adapter = FavDishAdapter(this@FavoriteDishesFragment)
+                // adapter instance is set to the recyclerview to inflate the items.
+                mBinding!!.rvFavoriteDishesList.adapter = adapter
+
                 if (it.isNotEmpty()) {
-                    // Print the id and title in the log for now.
-                    for (dish in it) {
-                        Log.i("Favorite Dish", "${dish.id} :: ${dish.title}")
-                    }
+                    mBinding!!.rvFavoriteDishesList.visibility = View.VISIBLE
+                    mBinding!!.tvNoFavoriteDishesAvailable.visibility = View.GONE
+
+                    adapter.dishesList(it)
                 } else {
-                    Log.i("List of Favorite Dishes", "is empty.")
+                    mBinding!!.rvFavoriteDishesList.visibility = View.GONE
+                    mBinding!!.tvNoFavoriteDishesAvailable.visibility = View.VISIBLE
                 }
+                // END
             }
         }
-        // END
+    }
+
+    // TODO Step 6: Override the onDestroy method and make the mBinding null where the method is executed.
+    // START
+    override fun onDestroy() {
+        super.onDestroy()
+        mBinding = null
     }
     // END
 }
