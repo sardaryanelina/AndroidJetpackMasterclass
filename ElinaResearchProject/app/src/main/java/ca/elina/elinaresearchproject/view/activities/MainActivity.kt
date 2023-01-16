@@ -1,6 +1,7 @@
 package ca.elina.elinaresearchproject.view.activities
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -46,16 +47,26 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(mNavController, null) // user can navigate back
     }
 
-
+    // TODO Step 5: Add the Visibility parameter to NavigationBottomView in both the hide and show functions.
+    // START
+    /**
+     * A function to hide the BottomNavigationView with animation.
+     */
     // A function to hide the BottomNavigationView with animation.
     fun hideBottomNavigationView() {
-        mBinding.navView.clearAnimation() // in case there are animations running, we get rid of them
+        mBinding.navView.clearAnimation()
         mBinding.navView.animate().translationY(mBinding.navView.height.toFloat()).duration = 300
+        mBinding.navView.visibility = View.GONE
     }
 
+    /**
+     * A function to show the BottomNavigationView with Animation.
+     */
     // A function to show the BottomNavigationView with Animation.
     fun showBottomNavigationView() {
         mBinding.navView.clearAnimation()
         mBinding.navView.animate().translationY(0f).duration = 300
+        mBinding.navView.visibility = View.VISIBLE
     }
+    // END
 }
