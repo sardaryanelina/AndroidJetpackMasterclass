@@ -48,4 +48,9 @@
     <string name="lbl_no">No</string>
     <string name="action_filter_dishes">Filter Dishes</string>
     <string name="title_select_item_to_filter">SELECT ITEM TO FILTER</string>
+
+    <!--TODO Step 5: Add the string value to the strings.xml-->
+    <!--START-->
+    <string name="msg_already_added_to_favorites">You have already added the dish to your favorites.</string>
+    <!--END-->
 </resources>

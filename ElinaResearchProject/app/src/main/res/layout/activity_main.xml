@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--TODO Step 3: Add the app:layout_constraintTop_toBottomOf="@id/nav_host_fragment" if your are having an issue displaying the CookingTime in the RandomDish Fragment.-->
+    <!--Add the app:layout_constraintTop_toBottomOf="@id/nav_host_fragment" if your are having an issue displaying the CookingTime in the RandomDish Fragment.-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
         app:menu="@menu/bottom_nav_menu" />
 
-    <!--TODO Step 4: Update the Height param to 0dp instead of match_parent-->
+    <!--Updated Height param to 0dp instead of match_parent-->
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

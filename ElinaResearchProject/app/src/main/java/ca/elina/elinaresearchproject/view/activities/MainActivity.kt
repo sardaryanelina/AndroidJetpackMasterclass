@@ -47,8 +47,7 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(mNavController, null) // user can navigate back
     }
 
-    // TODO Step 5: Add the Visibility parameter to NavigationBottomView in both the hide and show functions.
-    // START
+    // Visibility parameter to NavigationBottomView in both the hide and show functions.
     /**
      * A function to hide the BottomNavigationView with animation.
      */
@@ -68,5 +67,4 @@ class MainActivity : AppCompatActivity() {
         mBinding.navView.animate().translationY(0f).duration = 300
         mBinding.navView.visibility = View.VISIBLE
     }
-    // END
 }
