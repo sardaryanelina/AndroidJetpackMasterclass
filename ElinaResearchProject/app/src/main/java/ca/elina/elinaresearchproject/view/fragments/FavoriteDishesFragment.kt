@@ -72,8 +72,6 @@ class FavoriteDishesFragment : Fragment() {
         }
     }
 
-    // TODO Step 5: Override the onResume function to show the BottomNavigationView when the fragment is completely loaded.
-    // START
     override fun onResume() {
         super.onResume()
 
@@ -81,15 +79,12 @@ class FavoriteDishesFragment : Fragment() {
             (activity as MainActivity?)!!.showBottomNavigationView()
         }
     }
-    // END
 
     override fun onDestroy() {
         super.onDestroy()
         mBinding = null
     }
 
-    // TODO Step 2: Create a function to navigate to the Dish Details Fragment.
-    // START
     /**
      * A function to navigate to the Dish Details Fragment.
      *
@@ -97,15 +92,11 @@ class FavoriteDishesFragment : Fragment() {
      */
     fun dishDetails(favDish: FavDish) {
 
-        // TODO Step 4: Hide the BottomNavigationView while navigating to the DetailsFragment.
-        // START
         if (requireActivity() is MainActivity) {
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }
-        // END
 
         findNavController()
             .navigate(FavoriteDishesFragmentDirections.actionFavoriteDishesToDishDetails(favDish))
     }
-    // END
 }
