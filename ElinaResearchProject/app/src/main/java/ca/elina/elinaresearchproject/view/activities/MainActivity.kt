@@ -41,8 +41,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(mNavController, appBarConfiguration)
         mBinding.navView.setupWithNavController(mNavController) // use ViewBinding
 
-        // TODO Step 19: Handle the Notification when user clicks on it.
-        // START
+        // Handle the Notification when user clicks on it.
         if (intent.hasExtra(Constants.NOTIFICATION_ID)) {
             val notificationId = intent.getIntExtra(Constants.NOTIFICATION_ID, 0)
             Log.i("Notification Id", "$notificationId")
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             // The Random Dish Fragment is selected when user is redirect in the app via Notification.
             mBinding.navView.selectedItemId = R.id.navigation_random_dish
         }
-        // END
 
         startWork()
     }
