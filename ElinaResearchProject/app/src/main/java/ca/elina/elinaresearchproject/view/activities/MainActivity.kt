@@ -16,7 +16,13 @@ import ca.elina.elinaresearchproject.databinding.ActivityMainBinding
 import ca.elina.elinaresearchproject.model.notification.NotifyWorker
 import ca.elina.elinaresearchproject.utils.Constants
 import java.util.concurrent.TimeUnit
-
+/**
+ * Taken from Udemy Course Tutorial
+ * https://www.udemy.com/course/android-jetpack-masterclass
+ * Created By Elina Sardaryan
+ * College - John Abbott
+ * MAP-06
+ * December 2022 - January 2023 */
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
 
