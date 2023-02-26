@@ -447,10 +447,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.tvGallery.setOnClickListener {
 
-            // Ask for the permission while selecting the image from Gallery using Dexter Library.
-            // Comment out or Remove the toast message.
-            // Toast.makeText(this, "You have clicked on the Gallery.", Toast.LENGTH_SHORT).show()
-
             Dexter.withContext(this@AddUpdateDishActivity)
                 .withPermission(
                     Manifest.permission.READ_EXTERNAL_STORAGE
@@ -458,9 +454,6 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 .withListener(object : PermissionListener {
 
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-
-                        // Hide or Delete the Toast message for now just to know that we have the permission.
-                        //Toast.makeText(this@AddUpdateRecipeActivity,"You have the Gallery permission now to select image.",Toast.LENGTH_SHORT).show()
 
                         // Here after all the permission are granted launch the gallery to select and image.
                         val galleryIntent = Intent(
@@ -485,12 +478,9 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                     ) {
                         showRationalDialogForPermissions()
                     }
-                    // If you want to receive permission listener callbacks on the same thread that fired the permission request,
-                    // you just need to call onSameThread before checking for permissions:
                 }).onSameThread()
                 .check()
 
-            // dismiss the dialog in the end
             dialog.dismiss()
         }
 
